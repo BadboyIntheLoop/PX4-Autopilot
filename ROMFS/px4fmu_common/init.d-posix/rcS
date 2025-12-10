@@ -234,7 +234,8 @@ fi
 dataman start
 
 # only start the simulator if not in replay mode, as both control the lockstep time
-if ! replay tryapplyparams
+# Skip simulator if PX4_NO_SIM is set
+if ! replay tryapplyparams && [ -z "$PX4_NO_SIM" ]
 then
 	. px4-rc.simulator
 fi
