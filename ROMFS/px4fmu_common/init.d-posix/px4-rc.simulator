@@ -77,14 +77,19 @@ elif [ "$PX4_SIMULATOR" = "gz" ] || [ "$(param show -q SIM_GZ_EN)" = "1" ]; then
 				. ../gz_env.sh
 			fi
 
-			echo "INFO  [init] starting gazebo with world: ${PX4_GZ_WORLDS}/${PX4_GZ_WORLD}.sdf"
-
-			${gz_command} ${gz_sub_command} --verbose=1 -r -s "${PX4_GZ_WORLDS}/${PX4_GZ_WORLD}.sdf" &
-
-			if [ -z "${HEADLESS}" ]; then
-				# HEADLESS not set, starting gui
-				${gz_command} ${gz_sub_command} -g &
+			# Check if PX4_GZ_WORLD_FILE is set (full path to world file)
+			if [ -n "${PX4_GZ_WORLD_FILE}" ]; then
+				echo "INFO  [init] starting gazebo with world file: ${PX4_GZ_WORLD_FILE}"
+				${gz_command} ${gz_sub_command} --verbose=1 -r -v4 "${PX4_GZ_WORLD_FILE}" &
+			else
+				echo "INFO  [init] starting gazebo with world: ${PX4_GZ_WORLDS}/${PX4_GZ_WORLD}.sdf"
+				${gz_command} ${gz_sub_command} --verbose=1 -r -s "${PX4_GZ_WORLDS}/${PX4_GZ_WORLD}.sdf" &
 			fi
+
+			# if [ -z "${HEADLESS}" ]; then
+			# 	# HEADLESS not set, starting gui
+			# 	${gz_command} ${gz_sub_command} -g &
+			# fi
 
 		else
 			# Gazebo is already running, do not start the simulator, nor the GUI
@@ -92,7 +97,7 @@ elif [ "$PX4_SIMULATOR" = "gz" ] || [ "$(param show -q SIM_GZ_EN)" = "1" ]; then
 			PX4_GZ_WORLD=${gz_world}
 		fi
 	else
-		echo "INFO  [init] Standalone PX4 launch, waiting for Gazebo"
+		echo "INFO  [init] Standalone PX4 launch, waiting for external Gazebo"
 	fi
 
 	# start gz_bridge
@@ -110,7 +115,7 @@ elif [ "$PX4_SIMULATOR" = "gz" ] || [ "$(param show -q SIM_GZ_EN)" = "1" ]; then
 			# model pose not provided, origin will be used
 
 			echo "WARN  [init] PX4_GZ_MODEL_POSE not set, spawning at origin."
-			model_pose="0,0,0,0,0,0"
+			model_pose="0,0,0.1,0,0,0"
 		fi
 
 		# start gz bridge with pose arg.

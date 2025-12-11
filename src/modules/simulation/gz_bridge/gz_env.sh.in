@@ -2,5 +2,6 @@
 
 export PX4_GZ_MODELS=@PX4_SOURCE_DIR@/Tools/simulation/gz/models
 export PX4_GZ_WORLDS=@PX4_SOURCE_DIR@/Tools/simulation/gz/worlds
+# export AVOIDANCE_WORLDS=@PX4_SOURCE_DIR@/../avoidance/sim/worlds
 
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$PX4_GZ_MODELS:$PX4_GZ_WORLDS
+export GZ_SIM_RESOURCE_PATH=~/.gz/models:$PX4_GZ_MODELS:$PX4_GZ_WORLDS
