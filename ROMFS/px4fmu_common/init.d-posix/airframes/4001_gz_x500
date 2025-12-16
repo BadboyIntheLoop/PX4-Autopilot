@@ -8,14 +8,14 @@
 . ${R}etc/init.d/rc.mc_defaults
 
 PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
-PX4_GZ_WORLD=${PX4_GZ_WORLD:=vrc_task_1}
-PX4_GZ_WORLD_FILE=${PX4_GZ_WORLD_FILE:=/home/chungnt/workspace/pnk-avoidance/avoidance/sim/worlds/simple_obstacle.world}
+# PX4_GZ_WORLD=${PX4_GZ_WORLD:=simple_obstacle}
+# PX4_GZ_WORLD_FILE=${PX4_GZ_WORLD_FILE:=/home/chungnt/workspace/pnk-avoidance/avoidance/sim/worlds/simple_obstacle.world}
 PX4_SIM_MODEL=${PX4_SIM_MODEL:=x500}
 
 param set-default SIM_GZ_EN 1
 
 param set-default SENS_EN_GPSSIM 1
-param set-default SENS_EN_BAROSIM 0
+param set-default SENS_EN_BAROSIM 1
 param set-default SENS_EN_MAGSIM 1
 
 param set-default CA_AIRFRAME 0
@@ -53,3 +53,4 @@ param set-default SIM_GZ_EC_MAX3 1000
 param set-default SIM_GZ_EC_MAX4 1000
 
 param set-default MPC_THR_HOVER 0.60
+
