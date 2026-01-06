@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# @name Gazebo x500 Stereo Camera
+#
+# @type Quadrotor
+#
+
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=x500_stereo_cam}
+
+# Include base x500 configuration
+. ${R}etc/init.d-posix/airframes/4001_gz_x500
+
+# Stereo camera is mounted at: x=0.12m, y=0m, z=0.05m relative to CoG
+# If using vision odometry, configure EKF2 parameters
+# Uncomment these if you want to fuse VINS-Fusion output back to PX4:
+
+# Enable visual odometry fusion (position + velocity + yaw)
+# param set-default EKF2_EV_CTRL 15
+
+# Use vision as height reference (optional, only if VINS provides good altitude)
+# param set-default EKF2_HGT_REF 3
+
+# Set vision sensor position relative to CoG
+# param set-default EKF2_EV_POS_X 0.12
+# param set-default EKF2_EV_POS_Y 0.0
+# param set-default EKF2_EV_POS_Z 0.05
+
+# Vision delay (tune empirically if needed)
+# param set-default EKF2_EV_DELAY 0
